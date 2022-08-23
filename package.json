@@ -39,6 +39,6 @@
   },
   "engines": {
     "node": "16.16.0",
-    "npm": "8.11.0npm install express path --save"
+    "npm": "8.11.0"
   }
 }
