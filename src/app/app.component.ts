@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UpdateAppService } from './services/update-app.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
@@ -8,14 +9,24 @@ import { UpdateAppService } from './services/update-app.service';
 })
 export class AppComponent {
   title = 'pwa-angular';
-  constructor(private updateService:UpdateAppService){
+  constructor(
+    private updateService:UpdateAppService,
+    private matSnackBar:MatSnackBar
+    ){
 
   }
   ngOnInit(): void {
-    console.log('Run');
-    
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
     this.updateService.checkForUpdates();
+    addEventListener('offline',()=>{
+      this.matSnackBar.open('Please check your internet connection','OK',{
+        duration:3000
+      })
+    })
+    addEventListener('online',()=>{
+      this.matSnackBar.open('Back online','OK',{
+        duration:3000
+      })
+    })
+
   }
 }

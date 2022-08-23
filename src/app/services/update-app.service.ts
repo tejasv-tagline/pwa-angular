@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { UpdatePopupComponent } from '../shared/update-popup/update-popup.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UpdateAppService {
-  constructor(private updates: SwUpdate) {
+  constructor(private updates: SwUpdate,private dialog:MatDialog) {
   }
 
   public checkForUpdates(){
@@ -14,8 +16,12 @@ export class UpdateAppService {
     this.updates.versionUpdates.subscribe((evt: any) => {
       console.log("Event",evt)
       switch (evt.type) {
+        case 'NO_NEW_VERSION_DETECTED':
+          console.log('No new version,You are ready to go');
+          break;
         case 'VERSION_DETECTED':
           console.log(`Downloading new app version: ${evt.version.hash}`);
+          this.openUpdateDialog();
           break;
         case 'VERSION_READY':
           console.log(`Current app version: ${evt.currentVersion.hash}`);
@@ -30,5 +36,20 @@ export class UpdateAppService {
           break;
       }
     });
+  }
+
+
+  openUpdateDialog(){
+    console.log('Opening update dialog popup');
+    
+      const dialogRef = this.dialog.open(UpdatePopupComponent, {
+        width: '250px',
+        // data: {name: this.name, animal: this.animal},
+      });
+  
+      // dialogRef.afterClosed().subscribe(result => {
+      //   console.log('The dialog was closed');
+      //   this.animal = result;
+      // });
   }
 }
