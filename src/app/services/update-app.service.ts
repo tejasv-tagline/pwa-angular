@@ -12,6 +12,12 @@ export class UpdateAppService {
   }
   public count = 1;
   public checkForUpdates(){
+    console.log('this.updates :>> ', this.updates.versionUpdates.subscribe((resp:any) => {
+      console.log('resp :>> ', resp);
+    }));
+    this.updates.available.subscribe(event => {
+      console.log('event :>> ', event);
+    });
     console.log("Checking for updates here",this.count);
     this.count ++;
     this.updates.versionUpdates.subscribe((evt: any) => {
