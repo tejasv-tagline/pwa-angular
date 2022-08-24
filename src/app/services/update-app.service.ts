@@ -10,50 +10,50 @@ import { map } from 'rxjs';
 export class UpdateAppService {
   constructor(private updates: SwUpdate,private dialog:MatDialog) {
   }
-  public count = 1;
-  public checkForUpdates(){
-    this.updates.available.subscribe(event => {
-      console.log('event :>> ', event);
-    });
-    console.log("Checking for updates here",this.count);
-    this.count ++;
-    this.updates.versionUpdates.subscribe((evt: any) => {
-      console.log('evt :>> ', evt);
-      switch (evt.type) {
-        case 'NO_NEW_VERSION_DETECTED':
-          console.log('No new version,You are ready to go');
-          break;
-        case 'VERSION_DETECTED':
+  // public count = 1;
+  // public checkForUpdates(){
+  //   this.updates.available.subscribe(event => {
+  //     console.log('event :>> ', event);
+  //   });
+  //   console.log("Checking for updates here",this.count);
+  //   this.count ++;
+  //   this.updates.versionUpdates.subscribe((evt: any) => {
+  //     console.log('evt :>> ', evt);
+  //     switch (evt.type) {
+  //       case 'NO_NEW_VERSION_DETECTED':
+  //         console.log('No new version,You are ready to go');
+  //         break;
+  //       case 'VERSION_DETECTED':
 
-          console.log(`Downloading new app version: ${evt.version.hash}`);
-          this.openUpdateDialog();
-          break;
-        case 'VERSION_READY':
-          console.log(`Current app version: ${evt.currentVersion.hash}`);
-          console.log(
-            `New app version ready for use: ${evt.latestVersion.hash}`
-          );
-          break;
-        case 'VERSION_INSTALLATION_FAILED':
-          console.log(
-            `Failed to install app version '${evt.version.hash}': ${evt.error}`
-          );
-          break;
-      }
-    });
-  }
+  //         console.log(`Downloading new app version: ${evt.version.hash}`);
+  //         this.openUpdateDialog();
+  //         break;
+  //       case 'VERSION_READY':
+  //         console.log(`Current app version: ${evt.currentVersion.hash}`);
+  //         console.log(
+  //           `New app version ready for use: ${evt.latestVersion.hash}`
+  //         );
+  //         break;
+  //       case 'VERSION_INSTALLATION_FAILED':
+  //         console.log(
+  //           `Failed to install app version '${evt.version.hash}': ${evt.error}`
+  //         );
+  //         break;
+  //     }
+  //   });
+  // }
 
 
-  openUpdateDialog(){
-    console.log('Opening update dialog popup');
+  // openUpdateDialog(){
+  //   console.log('Opening update dialog popup');
     
-      const dialogRef = this.dialog.open(UpdatePopupComponent, {
-        width: '250px',
-        // data: {name: this.name, animal: this.animal},
-      });
+  //     const dialogRef = this.dialog.open(UpdatePopupComponent, {
+  //       width: '250px',
+  //       // data: {name: this.name, animal: this.animal},
+  //     });
   
-      dialogRef.afterClosed().subscribe(result => {
-        window.location.reload();
-      });
-  }
+  //     dialogRef.afterClosed().subscribe(result => {
+  //       window.location.reload();
+  //     });
+  // }
 }
