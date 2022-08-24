@@ -331,3 +331,7 @@ svg#clouds {
     visibility: hidden;
   }
 }
+::selection {
+  color: white;
+  background: #1976d2;
+}

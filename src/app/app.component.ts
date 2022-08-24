@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UpdateAppService } from './services/update-app.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CheckForUpdatesService } from './services/check-for-updates.service';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +12,14 @@ export class AppComponent {
   title = 'pwa-angular';
   constructor(
     private updateService:UpdateAppService,
-    private matSnackBar:MatSnackBar
+    private matSnackBar:MatSnackBar,
+    private checkUpdateService:CheckForUpdatesService
     ){
 
   }
   ngOnInit(): void {
-    this.updateService.checkForUpdates();
+    // this.updateService.checkForUpdates();
+    this.checkUpdateService.checkForUpdates();
     addEventListener('offline',()=>{
       this.matSnackBar.open('Please check your internet connection','OK',{
         duration:3000
