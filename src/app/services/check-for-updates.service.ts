@@ -20,11 +20,11 @@ export class CheckForUpdatesService {
     // Allow the app to stabilize first, before starting
     // polling for updates with `interval()`.
     const appIsStable$ = this.appRef.isStable.pipe(first(isStable => isStable === true));
-    const everySixHours$ = interval(6000);
+    const everySixHours$ = interval(1000 * 5);
     const everySixHoursOnceAppIsStable$ = concat(appIsStable$, everySixHours$);
     everySixHoursOnceAppIsStable$.subscribe(() => {
       this.updates.checkForUpdate().then((res) => { 
-        console.log('Is there any update :>> ', res);
+        console.log('Is there any update after 5 seconds:>> ', res);
         if(res){
           this.openUpdateDialog();
         }
@@ -33,13 +33,9 @@ export class CheckForUpdatesService {
 
   }
   openUpdateDialog(){
-    alert('Good lets refresh');
-    
-
     console.log('Opening update dialog popup new');
-    console.warn("Checking herereerererre===========================>")
       const dialogRef = this.dialog.open(UpdatePopupComponent, {
-        width: '250px',
+        width: '400px',
         // data: {name: this.name, animal: this.animal},
       });
   
