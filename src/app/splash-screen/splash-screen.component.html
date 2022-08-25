@@ -1,8 +1,11 @@
-
 <div
-class="app-splash-screen"
-[ngStyle]="{ left: windowWidth }"
-*ngIf="true"
+  class="app-splash-screen"
+  [ngStyle]="{
+    left: windowWidth,
+    opacity: opacityChange,
+    transition: splashTransition
+  }"
+  *ngIf="showSplash"
 >
-<img src="../assets/giphy.gif" alt="">
+  <img src="../assets/giphy.gif" alt="" />
 </div>
