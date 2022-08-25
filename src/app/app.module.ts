@@ -12,12 +12,16 @@ import { HomeComponent } from './home/home.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SplashScreenComponent } from './splash-screen/splash-screen.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AboutUsComponent,
-    HomeComponent
+    HomeComponent,
+    SplashScreenComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
