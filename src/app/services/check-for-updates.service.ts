@@ -1,5 +1,6 @@
 import { ApplicationRef, Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { SwUpdate } from '@angular/service-worker';
 import { concat, first, interval } from 'rxjs';
 import { UpdatePopupComponent } from '../shared/update-popup/update-popup.component';
@@ -10,7 +11,13 @@ import { UpdateAppService } from './update-app.service';
 })
 export class CheckForUpdatesService {
 
-  constructor(private appRef: ApplicationRef,private dialog:MatDialog, private updates: SwUpdate, private updateService: UpdateAppService) {
+  constructor(
+    private appRef: ApplicationRef,
+    private dialog: MatDialog,
+    private updates: SwUpdate,
+    private updateService: UpdateAppService,
+    private matSnackBar:MatSnackBar
+    ) {
 
   }
 
@@ -23,24 +30,25 @@ export class CheckForUpdatesService {
     const everySixHours$ = interval(1000 * 5);
     const everySixHoursOnceAppIsStable$ = concat(appIsStable$, everySixHours$);
     everySixHoursOnceAppIsStable$.subscribe(() => {
-      this.updates.checkForUpdate().then((res) => { 
+      this.updates.checkForUpdate().then((res) => {
         console.log('Is there any update after 5 seconds:>> ', res);
-        if(res){
+        if (res) {
           this.openUpdateDialog();
         }
       })
     })
 
   }
-  openUpdateDialog(){
+  openUpdateDialog() {
     console.log('Opening update dialog popup new');
-      const dialogRef = this.dialog.open(UpdatePopupComponent, {
-        width: '400px',
-        // data: {name: this.name, animal: this.animal},
-      });
-  
-      dialogRef.afterClosed().subscribe(result => {
-        window.location.reload();
-      });
+    window.location.reload();
+    this.matSnackBar.open('New version of app is updated','OK',{duration:8000})
+    // const dialogRef = this.dialog.open(UpdatePopupComponent, {
+    //   width: '400px',
+    //   // data: {name: this.name, animal: this.animal},
+    // });
+
+    // dialogRef.afterClosed().subscribe(result => {
+    // });
   }
 }
